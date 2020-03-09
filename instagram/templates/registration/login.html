@@ -1,41 +1,27 @@
-{%extends "registration/base.html"%}
-{% load bootstrap4 %}
+{% extends 'registration/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-<div class="container">
-  <div class="row">
-    <!-- Empty div -->
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-      {% if form.errors %}
-        <p> Password or Username is incorrect </p>
-      {% endif %}
-      <div class="panel panel-default">
-
-        <div class="panel-heading">
-          <h3 class="text-center">Sign In</h3>
-        </div>
-        <div class="panel-body">
-
-          <form  action="/accounts/login/" method="post">
+  <div class="container content mt-5">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 pt-5">
+        <div class="card bg-light pl-3 pr-3 text-black">
+          <form  method="post">
             {% csrf_token %}
-            {% bootstrap_form form%}
-
             <div class="form-group">
-              <input type="submit" class="btn btn-primary btn-sm" value="Login">
+              <legend class="border-bottom mb-4 text-center mt-5">Login to your InstaPic account</legend>
+              {{form|crispy}}
             </div>
-
-            <input type="hidden" name="next" value="{{next}}">
-
+            <div class="form-group">
+              <input type="submit" class="btn btn-outline-info w-100 pl-2 pr-2"  value="Login">
+            </div>
           </form>
-
+          <div class="border-bottom pt-3">
+            <p class="text-muted">Don't have an account?<a class="ml-2 text-info" href="{% url 'register' %}">Signup</a></p>
+          </div>
         </div>
-
       </div>
-
+      <div class="col-md-3"></div>
     </div>
-    <!-- empty div -->
-    <div class="col-md-4"></div>
   </div>
-</div>
-
 {% endblock %}

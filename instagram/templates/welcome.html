@@ -1,2 +1,42 @@
-<h1> WELCOME TO THE HOT SHOT PHOTSHOOT</h1>
-<h5>Damn! hot</h5>
+{%extends 'navbar.html'%}
+{% load bootstrap4 %}
+{% load static%}
+
+{% block content %}
+{{ block.super}}
+
+<div class="container-fluid landing">
+  <h2 class="text-center imagea">instagram</h2>
+
+</div>
+
+<!-- <div class="container-fluid boded" id="b"> -->
+<div class="container-fluid">
+  <hr>
+
+  {% if images %}
+  <div class="row">
+    {% for image in images %}
+    
+    <div class="card" width="500px" style="margin-bottom:30px; margin:30px; height: 600px;">
+        <img class="card-image text-center" height="400px" src="{{image.image.url}}" width="500px">
+        <hr>
+        <br>
+        <p class="card-text text-center">image {{image}</p>
+
+        <p class="card-text text-center">name : {{image.name}}</p>
+        <p class="card-text text-center">caption : {{image.location}}</p>
+        <p class="card-text text-center"> created_date : {{image.created_date}}</p>
+        <p class="card-text text-center"> comments: {{image.comments}}</p>
+
+          <br><br>
+      </div>
+
+
+    </div>
+  
+
+    {% endfor %}
+    {% endif %}
+      
+    {% endblock %}
