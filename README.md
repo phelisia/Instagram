@@ -30,10 +30,10 @@ pip install django pip install bootstrap pip insatall pillow
 # Setup and installation
 To get the project .......
 
-Cloning the repository:https://github.com/phelisia/Gallery
+Cloning the repository:https://github.com/phelisia/Instagram
 
 # Deployment
-deployed link:
+deployed link:https://peaceful-taiga-33014.herokua
 
 Built With
 Django- The web framework used CSS - Used to style
