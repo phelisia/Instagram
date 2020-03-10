@@ -1,45 +1,47 @@
 
-  <div class="container-fluid content">
-    <nav class="navbar navbar-expand-lg fixed-top">
-      <hr>
-      <a style="font-size: 32px;" class="text-info text-title insta" href="{% url 'welcome' %}"><i
-          class="fa fa-instagram text-info ml-2"></i>INSTAGRAM</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="fa fa-bars fa-3x mt-3 text-white"></span>
-      </button>
-      <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Menu
-          </a>
-          {% if user.is_authenticated %}
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{% url 'profile' %}"> <i class="fa fa-user"></i> Account</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'welcome' %}"><i class="fa fa-sign-out-alt"></i>Logout</a>
-          </div>
-        </li>
-        <div class="search_bar>">
-          <div style="text-align: center; margin-top: -0.10%; margin-left: 15%">
-            <form action="{% url 'search_results' %}" class="text-black" method="get">
-              {% csrf_token %}
-              <input type="text" name="post" class="form-control text-black" placeholder="search">
-            </form>
-          </div>
-        </div>
-        {% endif %}
-        <ul class="nav nav-tabs navbar-right">
-          <li><a href="/timeline/"><img class="img-responsive" src="../static/images/explore.png"
-                style="width: 25px; height: 25px; margin: 5px; margin-bottom: 8px; margin-top: 2px;"></a></li>
-          <li><a href="/profile/"><img class="img-responsive" src="../static/images/person.png"
-                style="width: 25px; height: 25px; margin: 5px; margin-top: 2px;"></a></li>
-          <li><a href="/index/"><img class="img-responsive" src="../static/images/heart.png"
-                style="width: 30px; height: 30px; margin: 5px; margin-top: 2px;"></a></li>
-        </ul>
-      </div>
-      <hr class="mt-2">
-    </nav>
-  </div>
+  <body>
 
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <hr>
+    <a style="font-size: 32px;" class="text-info text-title insta" href="{% url 'welcome' %}"><i
+        class="fa fa-instagram text-info ml-2"></i>INSTAGRAM</a>
+    <a style="font-size: 20px;" class="text-info ml-2" href="{% url 'image_create' %}">CreateImage</a><br><br><br>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="fa fa-bars fa-3x mt-3 text-white"></span>
+    </button>
+    <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Menu
+        </a>
+        {% if user.is_authenticated %}
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'profile' %}"> <i class="fa fa-user"></i> Account</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i>Logout</a>
+        </div>
+      </li>
+      <div class="search_bar>">
+        <div style="text-align: center; margin-top: -0.10%; margin-left: 15%">
+          <form action="{% url 'search_results' %}" class="text-black" method="get">
+            {% csrf_token %}
+            <input type="text" name="post" class="form-control text-black" placeholder="search">
+          </form>
+        </div>
+      </div>
+      {% endif %}
+      <ul class="nav nav-tabs navbar-right">
+        <li><a href="/timeline/"><img class="img-responsive" src="../static/images/explore.png"
+              style="width: 25px; height: 25px; margin: 5px; margin-bottom: 8px; margin-top: 2px;"></a></li>
+        <li><a href="/profile/"><img class="img-responsive" src="../static/images/person.png"
+              style="width: 25px; height: 25px; margin: 5px; margin-top: 2px;"></a></li>
+        <li><a href="/index/"><img class="img-responsive" src="../static/images/heart.png"
+              style="width: 30px; height: 30px; margin: 5px; margin-top: 2px;"></a></li>
+      </ul>
+    </div>
+    <hr class="mt-2">
+  </nav>
+</div>
+</body>

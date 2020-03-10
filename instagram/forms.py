@@ -1,12 +1,28 @@
 from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit,Layout,Field
-from crispy_forms.bootstrap import (
-    PrependedText, PrependedAppendedText, FormActions
-)
-
-class SignUpForm(forms.Form):
-    your_name = forms.CharField(label='First Name',max_length=30)
-    email = forms.EmailField(label='Email')
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from .models import *
+class RegisterForm(UserCreationForm):
+    email = forms.EmailField()
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment']
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = [ 'image','caption']
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+    class Meta:
+        model = User
+        fields = ['email']
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_photo', 'bio']
 
     

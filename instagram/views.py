@@ -1,29 +1,40 @@
 from django.shortcuts import render
 from django.http  import HttpResponse
 import datetime as dt
+from django.utils import timezone 
 from django.http  import HttpResponse,Http404
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-
+from .models import Image, Profile, Comment
+from .forms import *
 
 # Create your views here.
-@login_required(login_url='/profile')
-def welcome(request):
-    return render(request,'welcome.html')
+# @login_required(login_url='/profile')
+# def welcome(request):
+
+def login(request):
+    return render(request, 'login.html')
+
+
 
 def signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return redirect('welcome')
     else:
-        form = SignUpForm()
-    return render(request, 'registration/registration_form.html', {'form': form})
+        form = RegisterForm()
+    return render(request , 'registration/registration_form.html', {'form': form})
+
+@login_required(login_url='login')
+def welcome(request):
+    image = Image.objects.all()
+    return render(request, 'welcome.html', {'images': image[::-1]})
 
 @login_required(login_url='/profile')
 def search_results(request):
@@ -48,3 +59,24 @@ def profile(request):
             return render(request, 'profile.html', {})
 
     return render(request, 'all-pics/profile.html', {})
+def ImageCreateView(request):
+    # template_name = 'all-pics/create.html'
+    form_class = ImageForm()
+    queryset = Image.objects.all() 
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        form.instance.author = self.request.user 
+        return super().form_valid(form)
+
+    return render(request,'all-pics/create.html',{'form_class':form_class})
+        
+def ImageDeleteView(DeleteView):
+    template_name = 'all-pics/delete.html'
+
+    def get_object(self):
+        id_=self.kwargs.get("id")
+        return get_object_or_404(Post, id=id_)
+
+    def get_success_url(self):
+        return reverse('all-pics:post_list')

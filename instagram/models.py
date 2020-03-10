@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from datetime import datetime
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Image(models.Model):
@@ -9,12 +9,11 @@ class Image(models.Model):
     imagename=models.TextField()
     caption=models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
-    comments= models.TextField()
     
 
 
     def __str__(self):
-        return self.name
+        return self.caption
 
     def save_image(self):
         self.save()
@@ -35,6 +34,11 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.name
+class Comment(models.Model):
+    post = models.ForeignKey(Image, on_delete=models.CASCADE,related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=100)
+    created_date = models.DateTimeField(default=timezone.now)
 
 
     
