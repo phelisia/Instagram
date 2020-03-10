@@ -51,7 +51,7 @@ This project is licensed under the MIT License -
 to everyone who has contributed to this code
 
 # Contacts
- 
+ Email:phelisiajeruto@gmail.com Tel:0718117097
 
 # codebeat
 
