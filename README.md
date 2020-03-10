@@ -33,7 +33,7 @@ To get the project .......
 Cloning the repository:https://github.com/phelisia/Instagram
 
 # Deployment
-deployed link:https://peaceful-taiga-33014.herokua
+deployed link:https://peaceful-taiga-33014.herokuapp.com/
 
 Built With
 Django- The web framework used CSS - Used to style
