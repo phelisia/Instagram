@@ -39,7 +39,7 @@ Built With
 Django- The web framework used CSS - Used to style
 
 # Author
-Phelisia Jeruto
+Phelisia jeruto
 
 # License
 This project is licensed under the MIT License -
