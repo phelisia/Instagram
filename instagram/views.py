@@ -12,11 +12,6 @@ from .forms import *
 # @login_required(login_url='/profile')
 # def welcome(request):
 
-def login(request):
-    return render(request, 'login.html')
-
-
-
 def signup(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -31,10 +26,10 @@ def signup(request):
         form = RegisterForm()
     return render(request , 'registration/registration_form.html', {'form': form})
 
-@login_required(login_url='login')
+@login_required(login_url='logout')
 def welcome(request):
     image = Image.objects.all()
-    return render(request, 'welcome.html', {'images': image[::-1]})
+    return render(request, 'welcome.html', {'images': image})
 
 @login_required(login_url='/profile')
 def search_results(request):
@@ -61,16 +56,20 @@ def profile(request):
     return render(request, 'all-pics/profile.html', {})
 def ImageCreateView(request):
     # template_name = 'all-pics/create.html'
-    form_class = ImageForm()
-    queryset = Image.objects.all() 
-
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        form.instance.author = self.request.user 
-        return super().form_valid(form)
-
-    return render(request,'all-pics/create.html',{'form_class':form_class})
-        
+    if request.method == 'POST':
+        form = ImageForm(request.POST,request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            author = request.user
+            image.save()
+            messages.success(request, f'Your post has been created successfully!!')
+            return redirect('posts')
+    else:
+        form = ImageForm()
+    context = {
+        "form":form,
+    }
+    return render(request, 'all-pics/create.html', context)
 def ImageDeleteView(DeleteView):
     template_name = 'all-pics/delete.html'
 

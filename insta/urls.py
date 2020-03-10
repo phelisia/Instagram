@@ -21,7 +21,7 @@ from django.contrib.auth import views
 # from django_registration.backends.simple.views import LoginView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^instagram/',include('instagram.urls')),
+    url(r'^',include('instagram.urls')),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^logout/$', views.logout, {"next_page": '/'}), 
     # url(r'^accounts/', views.LoginView.as_view(), name='login'),
