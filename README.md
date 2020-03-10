@@ -1,6 +1,9 @@
 # Project Title
 INSTAGRAM
 
+# Description
+its an app that allows users to add pictures share and as well like them after login into the apps account
+
 # Getting Started
 Create a virtual environment $ python3 -m venv --without-pip virtual
 
@@ -48,6 +51,8 @@ This project is licensed under the MIT License -
 to everyone who has contributed to this code
 
 # Contacts
- Email:phelisiajeruto@gmail.com Tel:0718117097
+ 
 
 # codebeat
+
+
