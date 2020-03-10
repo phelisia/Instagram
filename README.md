@@ -33,7 +33,7 @@ To get the project .......
 Cloning the repository:https://github.com/phelisia/Gallery
 
 # Deployment
-deployed link:https://rocky-stream-38419.herokuapp.com/
+deployed link:
 
 Built With
 Django- The web framework used CSS - Used to style
