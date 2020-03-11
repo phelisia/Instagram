@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http  import HttpResponse
 import datetime as dt
 from django.utils import timezone 
@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Image, Profile, Comment
 from .forms import *
+from django.contrib import messages
 
 # Create your views here.
 # @login_required(login_url='/profile')
@@ -26,10 +27,21 @@ def signup(request):
         form = RegisterForm()
     return render(request , 'registration/registration_form.html', {'form': form})
 
-@login_required(login_url='logout')
+@login_required
 def welcome(request):
-    image = Image.objects.all()
-    return render(request, 'welcome.html', {'images': image})
+    images = Image.objects.all()
+    comments = Comment.objects.all()
+    comment_form = CommentForm()
+   
+
+    context = {
+        "images":images,
+        "comments":comments,
+        "comment_form":comment_form,
+    }
+
+
+    return render(request, 'welcome.html', context)
 
 @login_required(login_url='/profile')
 def search_results(request):
@@ -63,7 +75,7 @@ def ImageCreateView(request):
             author = request.user
             image.save()
             messages.success(request, f'Your post has been created successfully!!')
-            return redirect('posts')
+            return redirect('welcome')
     else:
         form = ImageForm()
     context = {
@@ -79,3 +91,32 @@ def ImageDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('all-pics:post_list')
+
+@login_required
+def comment(request, image_id):
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            image = Image.get_image(image_id)
+            comment.image = image
+            comment.save()
+            return redirect('welcome')
+        else:
+            comment_form = CommentForm()
+    context = {
+        "comment_form":comment_form,
+    }
+    return render(request, 'welcome.html', context)
+
+
+def commenting(request, pk):
+    images = Image.objects.get(pk=image_id)
+    context ={
+        "images":images,
+    }
+    return render(request, 'comments.html', context)
+

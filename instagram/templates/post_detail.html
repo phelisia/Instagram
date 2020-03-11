@@ -1,29 +1,15 @@
 {%extends "registration/base.html"%}
 {% block content %}
-    {% for post in posts%}
-        <div class="card">
-            <div class="card_header">
-                <div class="profile_image">
-
-
-                </div>
-                <div class="post_info">
-                    <div class="post_name">
-                        {{post.author}}
-
-                    </div>
-                    <div class="post_location">Kenya</div>
-
-                </div>
-                <div class="post_options">
-                        <i class="fas fa-ellipsis-h"></i></div>
-
-            </div>
-            <div class="post_image">
-                {% if post.image %}
-                    <img src="{{post.image.url}}" alt="">
-                {% endif %}
-            </div>
+    {% for image in images%}
+    {% for comment in post.comments.all %}
+    <div class="comment">
+        <div class="date">{{ comment.created_date }}</div>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
             <div class="eng">
                     
                     <a href=""><i class="far fa-heart"></i></a>

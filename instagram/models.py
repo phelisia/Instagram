@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     profile_photo=models.ImageField(upload_to='images/')
     bio=models.TextField()
-    profilename=models.TextField()
+    profile_name=models.TextField()
 
     def save_profile(self):
         self.save()
@@ -17,7 +17,7 @@ class Profile(models.Model):
         self.delete()
 
     def __str__(self):
-        return self.name
+        return self.profile_name
 
 class Image(models.Model):
     author = models.ForeignKey(Profile,null=True, blank=True, on_delete=models.CASCADE)
@@ -36,6 +36,14 @@ class Image(models.Model):
 
     def delete_image(self):
         self.delete()
+    @classmethod
+    def get_image(cls,id):
+        try:
+            image = Image.objects.get(pk=id)
+        except ObjectDoesNotExist:
+            raise Http404()
+        return image
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Image, on_delete=models.CASCADE,related_name='comments')
